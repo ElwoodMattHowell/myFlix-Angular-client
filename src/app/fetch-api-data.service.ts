@@ -27,7 +27,7 @@ export class FetchApiDataService {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + 'movies', {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${token}`
+        Authorization: 'Bearer ' + token
       })
     }).pipe(catchError(this.handleError));
   }
@@ -45,7 +45,7 @@ export class FetchApiDataService {
     const token = localStorage.getItem('token');
     return this.http.get(apiUrl + `directors/${director}`, {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${token}`
+        Authorization: 'Bearer ' + token
       })
     }).pipe(catchError(this.handleError));
   }
