@@ -3,6 +3,24 @@
   display: flex;
   flex-direction: column;
   min-height: 100%;
+  align-items: center;
+}
+
+.favorite-container {
+  margin-top: 250px;
+  text-align: center;
+  width: 100%;
+}
+
+.info-container {
+  position: fixed;
+  top: 80px;
+  width: 75%;
+  text-align: center;
+}
+
+h1 {
+  color: white;
 }
 
 app-main-nav {
@@ -11,13 +29,21 @@ app-main-nav {
   width: 100%
 }
 
-mat-card {
+mat-card-header {
+  justify-content: center;
+}
+
+.info-card {
   background-color: #f4ec6f;
-  margin: 10px;
+}
+
+.movie-card {
+  background-color: #f4ec6f;
+  margin: 0 10px;
   text-align: center;
 }
 
-mat-card-title {
+.title {
   height: 40px;
 }
 

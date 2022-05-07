@@ -1,0 +1,14 @@
+<mat-card>
+  <button mat-icon-button class="close" [mat-dialog-close]="true">
+    <mat-icon>close</mat-icon>
+  </button>
+  <mat-card-header>
+    <mat-card-title>{{ data.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-header>
+    <mat-card-title>About: {{ data.bio }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-header>
+    <mat-card-title>Born in {{ data.birthyear }}</mat-card-title>
+  </mat-card-header>
+</mat-card>

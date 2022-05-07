@@ -1,0 +1,14 @@
+<mat-card>
+  <div class="img-wrapper">
+    <img src={{data.ImageStill}} alt={{data.Title}} />
+  </div>
+  <mat-card-header>
+    <!-- <img src={{ data.ImageStill }} alt={{ data.ImageStill }} /> -->
+    <mat-card-title>{{ data.Description }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-actions>
+    <button mat-raised-button (click)="openGenreViewDialog(data)">Genre</button>
+    <button mat-raised-button (click)="openDirectorViewDialog(data)">Director</button>
+    <button mat-raised-button class="close" [mat-dialog-close]="true">Close</button>
+  </mat-card-actions>
+</mat-card>

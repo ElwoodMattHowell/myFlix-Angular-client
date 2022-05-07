@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="favorite-container">
+    <h1>My Favorite Movies</h1>
+    <div fxLayout="row wrap" fxLayoutAlign="center" style="margin-top: 60px;">
+      <ng-container *ngFor="let movie of favoriteMovies;">
+        <mat-card class="movie-card" fxFlex="0 1 25%" fxFlex.lt-md="0 1 33%" fxFlex.lt-sm="50%">
+          <mat-card-header style="justify-content: center;">
+            <mat-card-title class="title">{{movie.Title}}</mat-card-title>
+            <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
+          </mat-card-header>
+          <img src={{movie.ImagePath}} alt={{movie.Title}} (click)="openSynopsisViewDialog(movie)" />
+        </mat-card>
+      </ng-container>
+    </div>
+  </div>
+  <div class="info-container">
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>Username: {{ user.username }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>Email: {{ user.Email }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="openEditUserViewDialog()">Edit User Information</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <app-main-nav></app-main-nav>
+</div>

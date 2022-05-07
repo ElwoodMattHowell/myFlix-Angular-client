@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Limelight&display=swap');
+
+h1 {
+  font-family: 'Limelight', cursive;
+}
+
+h2 {
+  font-family: 'Limelight', cursive;
+}
+
+button {
+  background-color: #901a2a;
+  color: white;
+}
+
+.main-page {
+  background-color: #f4ec6f;
+  flex: 1 1 auto;
+  text-align: center;
+  height: 100%;
+}
+
+#marquee {
+  margin-top: 40px;
+  width: 80%;
+  height: 400px;
+  border-radius: 75px;
+}
+
+.welcome {
+  font-family: 'Limelight', cursive;
+  margin-top: 40px;
+}

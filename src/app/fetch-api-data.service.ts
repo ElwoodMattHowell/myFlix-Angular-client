@@ -59,36 +59,40 @@ export class FetchApiDataService {
     }).pipe(catchError(this.handleError));
   }
 
-  public getUser(username: string): Observable<any> {
+  public getUser(): Observable<any> {
+    const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + `users/${username}`, {
+    return this.http.get(apiUrl + `users/${user}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`
       })
     }).pipe(catchError(this.handleError));
   }
 
-  public getFavorites(username: string): Observable<any> {
+  public getFavorites(): Observable<any> {
+    const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    return this.http.get(apiUrl + `users/${username}`, {
+    return this.http.get(apiUrl + `users/${user}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`
       })
     }).pipe(catchError(this.handleError));
   }
 
-  public addToFavorites(username: string, movieId: number): Observable<any> {
+  public addToFavorites(movieId: string): Observable<any> {
+    const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    return this.http.post(apiUrl + `users/${username}/movies/${movieId}`, {
+    return this.http.post(apiUrl + `users/${user}/movies/${movieId}`, null, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`
       })
     }).pipe(catchError(this.handleError));
   }
 
-  public removeFromFavorites(username: string, movieId: number): Observable<any> {
+  public removeFromFavorites(movieId: string): Observable<any> {
+    const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    return this.http.delete(apiUrl + `users/${username}/movies/${movieId}`, {
+    return this.http.delete(apiUrl + `users/${user}/movies/${movieId}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${token}`
       })

@@ -1,41 +1,51 @@
-import { Component, OnInit } from '@angular/core';
-import { FetchApiDataService } from '../fetch-api-data.service';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { GenreViewComponent } from '../genre-view/genre-view.component';
 import { DirectorViewComponent } from '../director-view/director-view.component';
-import { SynopsisViewComponent } from '../synopsis-view/synopsis-view.component';
+import { MatDialog } from '@angular/material/dialog';
+
+import { FetchApiDataService } from '../fetch-api-data.service';
 
 @Component({
-  selector: 'app-movie-card',
-  templateUrl: './movie-card.component.html',
-  styleUrls: ['./movie-card.component.scss']
+  selector: 'app-synopsis-view',
+  templateUrl: './synopsis-view.component.html',
+  styleUrls: ['./synopsis-view.component.scss']
 })
-export class MovieCardComponent implements OnInit {
-  movies: any[] = [];
+export class SynopsisViewComponent implements OnInit {
   favoriteMovies: any[] = [];
-  constructor(public fetchApiData: FetchApiDataService,
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialogRef: MatDialogRef<SynopsisViewComponent>,
+    public snackBar: MatSnackBar,
     public dialog: MatDialog,
-    public snackBar: MatSnackBar) { }
+    public fetchApiData: FetchApiDataService,) { }
 
   ngOnInit(): void {
-    this.getMovies();
-    this.getFavorites();
+    this.getFavorites()
   }
 
-  getMovies(): void {
-    this.fetchApiData.getMovies().subscribe((resp: any) => {
-      this.movies = resp;
-      return this.movies;
+  openGenreViewDialog(data: any): void {
+    this.dialog.open(GenreViewComponent, {
+      width: '320px',
+      data: {
+        name: data.Genre.Name,
+        description: data.Genre.Description
+      }
     });
   }
 
-  openSynopsisViewDialog(movie: any): void {
-    console.log(movie);
-    this.dialog.open(SynopsisViewComponent, {
-      width: '800px',
-      data: movie
-    })
+  openDirectorViewDialog(data: any): void {
+    this.dialog.open(DirectorViewComponent, {
+      width: '320px',
+      data: {
+        name: data.Director.Name,
+        bio: data.Director.Bio,
+        birthyear: data.Director.Birth
+      }
+    });
   }
 
   getFavorites(): void {
@@ -56,7 +66,7 @@ export class MovieCardComponent implements OnInit {
         `${title} has been added to your favorites!`, 'OK', { duration: 2000 }
       );
     })
-    this.ngOnInit();
+    window.location.reload();
   }
 
   removeFromFavorites(movie: string, title: string): void {
@@ -66,10 +76,10 @@ export class MovieCardComponent implements OnInit {
         `${title} has been removed from your favorites`, 'OK', { duration: 2000 }
       );
     })
-    this.ngOnInit();
+    window.location.reload();
   }
 
   favoritesList(movie: string, title: string): void {
     this.isFavorite(movie) ? this.removeFromFavorites(movie, title) : this.addToFavorites(movie, title)
   }
-}
+} 

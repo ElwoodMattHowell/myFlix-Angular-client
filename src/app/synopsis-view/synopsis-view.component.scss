@@ -1,0 +1,30 @@
+mat-card {
+  background-color: #901a2a;
+  color: white;
+  flex-direction: column;
+}
+
+img {
+  width: 400px;
+}
+
+button {
+  background-color: #1c2393;
+  color: white;
+  border-radius: 30px;
+  margin: 0 10px;
+}
+
+mat-card-header {
+  margin-top: 40px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.img-wrapper {
+  display: flex;
+  justify-content: center;
+}
