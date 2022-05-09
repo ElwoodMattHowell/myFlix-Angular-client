@@ -1,7 +1,10 @@
+/** ProfileViewComponent displays username, and email as well as list of favorite movies.  Allows the user to edit user information or delete user profile */
+
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserinfoComponent } from '../edit-userinfo/edit-userinfo.component';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { SynopsisViewComponent } from '../synopsis-view/synopsis-view.component';
 
@@ -20,6 +23,8 @@ export class ProfileViewComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public fetchApiData: FetchApiDataService,
+    public snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +33,7 @@ export class ProfileViewComponent implements OnInit {
     this.getFavoriteMovies();
   }
 
+  /** Opens EditUserinfoComponent*/
   openEditUserViewDialog(): void {
     this.dialog.open(EditUserinfoComponent, {
       width: '280px;',
@@ -37,12 +43,14 @@ export class ProfileViewComponent implements OnInit {
     }).afterClosed().subscribe(() => window.location.reload());
   }
 
+  /** retrieves user profile */
   getUser(): void {
     this.fetchApiData.getUser().subscribe((response: any) => {
       this.user = response
     })
   }
 
+  /** retrieves full list of movies in database */
   getMovies(): void {
     this.fetchApiData.getMovies().subscribe((resp: any) => {
       this.movies = resp;
@@ -50,20 +58,30 @@ export class ProfileViewComponent implements OnInit {
     });
   }
 
+  /** retrieves list of favorite movie id's */
   getFavoriteMovies(): void {
     this.fetchApiData.getUser().subscribe((resp: any) => {
-      console.log(resp.Favorite_Movies);
-      console.log(this.movies);
       this.favoriteMovies = this.movies.filter(movie => resp.Favorite_Movies.includes(movie._id));
-      console.log(this.favoriteMovies)
     })
   }
 
+  /** opens synopsis dialog for selected movie */
   openSynopsisViewDialog(movie: any): void {
     console.log(movie);
     this.dialog.open(SynopsisViewComponent, {
       width: '800px',
       data: movie
     })
+  }
+
+  /** deletes user from database */
+  deleteUser(): void {
+    this.fetchApiData.deleteUser().subscribe(() => {
+      this.snackBar.open(`${this.user.username} has been removed!`, 'OK', {
+        duration: 4000,
+      });
+      localStorage.clear();
+    });
+    this.router.navigate(['']);
   }
 }

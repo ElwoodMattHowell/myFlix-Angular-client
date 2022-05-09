@@ -1,3 +1,4 @@
+/**EditUserInfoComponent allows the user to edit their username, email, and password. */
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,24 +13,24 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 })
 export class EditUserinfoComponent implements OnInit {
 
+  /** binds input proerties to DOM properties in the template*/
   @Input() userData = { username: '', Email: '' };
   @Input() userPassword = { password: '' };
 
+  /** The data that was passed to the EditUserInfoComponent dialog in the ProfileViewComponent is injected in to the constructor using the MAT_DIALOG_DATA  *injection token.  The data becomes a property of the class and is available to be used in the template. 
+ */
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<EditUserinfoComponent>,
     public snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
-    console.log(this.data.user.Email)
-  }
+  ngOnInit(): void { }
 
+  /** checks to see if username and Email inputs are empty upon submission, if either is empty, function passes back current values to editUser */
   getNewData(): object {
     let username;
     let Email;
-    console.log(this.userData.Email)
-    console.log(this.data.user.username);
     if (this.userData.username === '') {
       username = this.data.user.username;
     } else {
@@ -46,6 +47,8 @@ export class EditUserinfoComponent implements OnInit {
     }
     return newUserData
   }
+
+  /** Function takes new username and Email and updates database */
   editUser(): void {
     const newUserData = this.getNewData();
     if ((this.userData.username != '') && (this.userData.username.length < 5)) {
@@ -68,6 +71,7 @@ export class EditUserinfoComponent implements OnInit {
     }
   }
 
+  /** Function takes new password, checks that it is long enough and if so, updates password in database */
   editPassword(): void {
     if (this.userPassword.password.length < 7) {
       this.snackBar.open('Password must be at least 7 characters long', 'OK');

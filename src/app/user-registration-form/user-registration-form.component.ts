@@ -1,3 +1,6 @@
+/** UserRegistrationFormComponent allows users to register a new account with a username, password, and email.
+ * @module UserRegistrationFormComponent
+ */
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,6 +16,7 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 
 export class UserRegistrationFormComponent implements OnInit {
 
+  /** binds input proerties to DOM properties in the template*/
   @Input() userData = { username: '', password: '', Email: '' };
 
   constructor(
@@ -23,6 +27,7 @@ export class UserRegistrationFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /** calls userRegistration from @service FetchApiDataService */
   registerUser(): void {
     this.fetchApiData.userRegistration(this.userData).subscribe((response) => {
 
